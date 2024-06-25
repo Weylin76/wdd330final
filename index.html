@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+</head>
+
+<body>
+    <!-- Placeholder for header partial -->
+    <div id="header-content"></div>
+
+    <!-- Main content area -->
+    <div>
+        <h2>ABC Company Employee List</h2>
+        <p>Welcome to the ABC Company employee management system.</p>
+
+        <!-- Search and Filter Controls -->
+        <div class="controls">
+            <input type="text" id="search-input" placeholder="Search by name">
+            <select id="filter-salary">
+                <option value="">Filter by salary range</option>
+                <option value="50000-100000">50,000 - 100,000</option>
+                <option value="100001-150000">100,001 - 150,000</option>
+                <option value="150001-200000">150,001 - 200,000</option>
+                <option value="200001-250000">200,001 - 250,000</option>
+            </select>
+            <select id="filter-department">
+                <option value="">Filter by department</option>
+                <option value="HR">HR</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Sales">Sales</option>
+            </select>
+            <!-- Filter Button -->
+            <button id="apply-filters">Apply Filters</button>
+        </div>
+
+        <!-- Link to the taxes page -->
+        <p>
+            <a href="./pages/taxes.html">Calculate Employee Federal Taxes</a>
+        </p>
+
+        <!-- Employee list -->
+        <p>ABC Company Employee List</p>
+        <div id="wrapper">
+            <div id="output"></div><br>
+            <div>Total of combined wages:</div>
+            <div id="allWages"></div>
+        </div>
+
+        <!-- Additional content or links -->
+    </div>
+
+    <!-- Placeholder for footer partial -->
+    <div id="footer-content"></div>
+
+    <!-- Load scripts -->
+    <script src="./scripts/loadPartials.js" defer></script>
+    <script src="./scripts/api.js" defer></script>
+    <script src="./scripts/filters.js" defer></script>
+</body>
+
+</html>

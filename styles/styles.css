@@ -1,0 +1,42 @@
+body {
+    width: 30%;
+    margin: 0 auto;
+    background-color: rgba(201, 197, 197, 0.984);
+}
+
+.main-content {
+    padding: 20px;
+}
+
+.employee-list {
+    margin-top: 20px;
+}
+
+.employee-info {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.employee-info img {
+    display: block;
+    max-width: 100px;
+    border-radius: 10%;
+    border: 1px black solid;
+}
+
+.employee-info div {
+    margin-top: 5px;
+}
+
+
+
+
+
+
+
+
+
