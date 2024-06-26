@@ -10,10 +10,12 @@
 
 <body>
     <!-- Placeholder for header partial -->
-    <div id="header-content"></div>
+    <div id="header-content" class="header">
+        <h1>Header Loaded</h1>
+    </div>
 
     <!-- Main content area -->
-    <div>
+    <div class="main-content">
         <h2>ABC Company Employee List</h2>
         <p>Welcome to the ABC Company employee management system.</p>
 
@@ -39,22 +41,22 @@
 
         <!-- Employee list -->
         <p>ABC Company Employee List</p>
-        <div id="wrapper">
-            <div id="output"></div><br>
-            <div>Total of combined wages:</div>
-            <div id="allWages"></div>
-        </div>
+        <div class="employee-list" id="output"></div><br>
+        <div style="text-align: center;">Total of combined wages:</div>
+        <div id="allWages" style="text-align: center;"></div>
 
         <!-- Additional content or links -->
     </div>
 
     <!-- Placeholder for footer partial -->
-    <div id="footer-content"></div>
+    <div id="footer-content" class="footer">
+        Footer Loaded
+    </div>
 
     <!-- Load scripts -->
-    <script src="./scripts/loadPartials.js" defer></script>
-    <script src="./scripts/api.js" defer></script>
-    <script src="./scripts/filters.js" defer></script>
+    <script src="../scripts/loadPartials.js" defer></script>
+    <script src="../scripts/api.js" defer></script>
+    <script src="../scripts/filters.js" defer></script>
 </body>
 
 </html>

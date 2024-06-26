@@ -3,36 +3,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterDepartment = document.getElementById('filter-department');
     const applyFiltersButton = document.getElementById('apply-filters');
     const output = document.getElementById('output');
-    let employees = []; // Store fetched employees data
+    let employees = [];
 
-    // Function to fetch and display employees
-    async function fetchAndDisplayEmployees() {
-        const url = 'https://randomuser.me/api/?results=10';
-        try {
-            const response = await fetch(url);
-            const data = await response.json();
-            employees = data.results.map(employee => ({
-                ...employee,
-                department: getRandomDepartment(), // Assign a random department to each employee
-                salary: Math.floor(Math.random() * (250000 - 50000 + 1) + 50000) // Assign a random salary
-            }));
-            displayEmployees(employees); // Display all employees initially
-        } catch (error) {
-            console.error('Error fetching employee data:', error);
-            output.textContent = 'Failed to load employee data.';
-        }
+    // Retrieve employee data from session storage
+    const storedEmployees = sessionStorage.getItem('employees');
+    if (storedEmployees) {
+        employees = JSON.parse(storedEmployees);
+        displayEmployees(employees); // Display all employees initially
+    } else {
+        console.error('No employee data found in session storage.');
     }
 
-    // Function to display employees based on filters
-    function displayEmployees(filteredEmployees) {
+    // Display employees based on the provided list
+    function displayEmployees(employeeList) {
         output.innerHTML = ''; // Clear previous results
-        filteredEmployees.forEach(employee => {
+        employeeList.forEach(employee => {
             // Create a container for each employee's info
             const employeeDiv = document.createElement('div');
             employeeDiv.classList.add('employee-info');
 
             // Name
-            const nameDiv = document.createElement('div');
+            const nameDiv = document.createElement('h3');
             nameDiv.textContent = `${employee.name.first} ${employee.name.last}`;
             employeeDiv.appendChild(nameDiv);
 
@@ -44,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Salary
             const salaryDiv = document.createElement('div');
-            salaryDiv.textContent = `Salary: ${employee.salary.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}`;
+            salaryDiv.textContent = `Salary: $${employee.salary.toLocaleString()}`;
             employeeDiv.appendChild(salaryDiv);
 
             // Department
@@ -57,12 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Function to get a random department
-    function getRandomDepartment() {
-        const departments = ['HR', 'Engineering', 'Sales', 'Marketing', 'Finance'];
-        return departments[Math.floor(Math.random() * departments.length)];
-    }
-
     // Filter employees based on search and selected filters
     function filterEmployees() {
         const searchTerm = searchInput.value.toLowerCase();
@@ -70,8 +55,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const filtered = employees.filter(employee => {
             const fullName = `${employee.name.first} ${employee.name.last}`.toLowerCase();
+            const department = employee.department;
+
             let matchesSearch = fullName.includes(searchTerm);
-            let matchesDepartment = selectedDepartment ? employee.department === selectedDepartment : true;
+            let matchesDepartment = true;
+
+            if (selectedDepartment) {
+                matchesDepartment = department === selectedDepartment;
+            }
 
             return matchesSearch && matchesDepartment;
         });
@@ -81,12 +72,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Event listener for the apply filters button
     applyFiltersButton.addEventListener('click', filterEmployees);
-
-    // Event listener for the search input to filter as you type
-    searchInput.addEventListener('input', filterEmployees);
-
-    // Fetch and display employees on page load
-    fetchAndDisplayEmployees();
 });
+
+
+
+
 
 
