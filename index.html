@@ -10,9 +10,10 @@
 
 <body>
     <!-- Placeholder for header partial -->
-    <div id="header-content" class="header">
-        <h1>Header Loaded</h1>
-    </div>
+    <div id="header-content"></div>
+
+    <!-- Placeholder for nav partial -->
+    <div id="nav-content"></div>
 
     <!-- Main content area -->
     <div class="main-content">
@@ -34,11 +35,6 @@
             <button id="apply-filters">Apply Filters</button>
         </div>
 
-        <!-- Link to the taxes page -->
-        <p>
-            <a href="./pages/taxes.html">Calculate Employee Federal Taxes</a>
-        </p>
-
         <!-- Employee list -->
         <p>ABC Company Employee List</p>
         <div class="employee-list" id="output"></div><br>
@@ -49,14 +45,12 @@
     </div>
 
     <!-- Placeholder for footer partial -->
-    <div id="footer-content" class="footer">
-        Footer Loaded
-    </div>
+    <div id="footer-content"></div>
 
     <!-- Load scripts -->
-    <script src="../scripts/loadPartials.js" defer></script>
-    <script src="../scripts/api.js" defer></script>
-    <script src="../scripts/filters.js" defer></script>
+    <script src="./scripts/loadPartials.js" defer></script>
+    <script src="./scripts/api.js" defer></script>
+    <script src="./scripts/filters.js" defer></script>
 </body>
 
 </html>

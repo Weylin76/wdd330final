@@ -1,80 +1,87 @@
-document.addEventListener('DOMContentLoaded', async function () {
-    const basePath = window.location.pathname.includes('/pages/') ? '../partials/' : 'partials/';
-    await loadPartial(`${basePath}header.html`, 'header-content');
-    await loadPartial(`${basePath}footer.html`, 'footer-content');
+document.addEventListener('DOMContentLoaded', () => {
+    const output = document.getElementById('tax-output');
+
+    // Function to calculate federal taxes based on salary
+    function calculateFederalTax(salary) {
+        const brackets = [
+            { rate: 0.10, limit: 9875 },
+            { rate: 0.12, limit: 40125 },
+            { rate: 0.22, limit: 85525 },
+            { rate: 0.24, limit: 163300 },
+            { rate: 0.32, limit: 207350 },
+            { rate: 0.35, limit: 518400 },
+            { rate: 0.37, limit: Infinity }
+        ];
+
+        let tax = 0;
+        let previousLimit = 0;
+
+        for (const bracket of brackets) {
+            if (salary <= bracket.limit) {
+                tax += (salary - previousLimit) * bracket.rate;
+                break;
+            } else {
+                tax += (bracket.limit - previousLimit) * bracket.rate;
+                previousLimit = bracket.limit;
+            }
+        }
+
+        return tax;
+    }
+
+    // Function to display employees with tax information
+    function displayEmployeesWithTax(employeeList) {
+        output.innerHTML = ''; // Clear previous results
+        employeeList.forEach(employee => {
+            const salary = employee.salary;
+            const annualTax = calculateFederalTax(salary);
+            const taxPerPayPeriod = annualTax / 26;
+
+            // Create a container for each employee's info
+            const employeeDiv = document.createElement('div');
+            employeeDiv.classList.add('employee-info');
+
+            // Name
+            const nameDiv = document.createElement('h3');
+            nameDiv.textContent = `${employee.name.first} ${employee.name.last}`;
+            employeeDiv.appendChild(nameDiv);
+
+            // Image
+            const image = document.createElement('img');
+            image.setAttribute('src', employee.picture.large);
+            image.setAttribute('alt', `Picture of ${employee.name.first} ${employee.name.last}`);
+            employeeDiv.appendChild(image);
+
+            // Salary
+            const salaryDiv = document.createElement('div');
+            salaryDiv.textContent = `Salary: $${salary.toLocaleString()}`;
+            employeeDiv.appendChild(salaryDiv);
+
+            // Annual Tax
+            const annualTaxDiv = document.createElement('div');
+            annualTaxDiv.textContent = `Annual Tax: $${annualTax.toFixed(2)}`;
+            employeeDiv.appendChild(annualTaxDiv);
+
+            // Tax per Pay Period
+            const taxPerPayPeriodDiv = document.createElement('div');
+            taxPerPayPeriodDiv.textContent = `Tax per Pay Period: $${taxPerPayPeriod.toFixed(2)}`;
+            employeeDiv.appendChild(taxPerPayPeriodDiv);
+
+            // Append to the output container
+            output.appendChild(employeeDiv);
+        });
+    }
 
     // Retrieve employee data from session storage
     const storedEmployees = sessionStorage.getItem('employees');
     if (storedEmployees) {
         const employees = JSON.parse(storedEmployees);
-        displayEmployees(employees);
+        displayEmployeesWithTax(employees);
     } else {
         console.error('No employee data found in session storage.');
     }
 });
 
-function displayEmployees(employees) {
-    const taxOutput = document.getElementById('tax-output');
-    taxOutput.innerHTML = '';
-
-    employees.forEach(employee => {
-        const annualTax = calculateAnnualTax(employee.salary);
-        const taxPerPayPeriod = (annualTax / 26).toFixed(2);
-
-        const employeeDiv = document.createElement('div');
-        employeeDiv.className = 'employee-info';
-
-        employeeDiv.innerHTML = `
-            <h3>${employee.name.first} ${employee.name.last}</h3>
-            <img src="${employee.picture.large}" alt="${employee.name.first} ${employee.name.last}">
-            <div>Salary: $${employee.salary.toLocaleString()}</div>
-            <div>Annual Tax: $${annualTax.toLocaleString()}</div>
-            <div>Tax per Pay Period: $${taxPerPayPeriod}</div>
-        `;
-
-        taxOutput.appendChild(employeeDiv);
-    });
-}
-
-function calculateAnnualTax(salary) {
-    const brackets = [
-        { rate: 0.1, cap: 9950 },
-        { rate: 0.12, cap: 40525 },
-        { rate: 0.22, cap: 86375 },
-        { rate: 0.24, cap: 164925 },
-        { rate: 0.32, cap: 209425 },
-        { rate: 0.35, cap: 523600 },
-        { rate: 0.37, cap: Infinity }
-    ];
-
-    let tax = 0;
-    let previousCap = 0;
-
-    for (const bracket of brackets) {
-        if (salary > bracket.cap) {
-            tax += (bracket.cap - previousCap) * bracket.rate;
-        } else {
-            tax += (salary - previousCap) * bracket.rate;
-            break;
-        }
-        previousCap = bracket.cap;
-    }
-
-    return tax;
-}
-
-async function loadPartial(file, elementId) {
-    try {
-        const response = await fetch(file);
-        if (!response.ok) throw new Error(`Failed to fetch ${file}`);
-        
-        const data = await response.text();
-        const element = document.getElementById(elementId);
-        if (element) element.innerHTML = data;
-    } catch (error) {
-        console.error(`Error loading ${file}:`, error);
-    }
-}
 
 
 

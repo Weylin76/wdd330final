@@ -5,14 +5,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const output = document.getElementById('output');
     let employees = [];
 
-    // Retrieve employee data from session storage
-    const storedEmployees = sessionStorage.getItem('employees');
-    if (storedEmployees) {
-        employees = JSON.parse(storedEmployees);
-        displayEmployees(employees); // Display all employees initially
-    } else {
-        console.error('No employee data found in session storage.');
-    }
+    // Event listener for the custom event
+    document.addEventListener('employeesReady', () => {
+        // Retrieve employee data from session storage
+        const storedEmployees = sessionStorage.getItem('employees');
+        if (storedEmployees) {
+            employees = JSON.parse(storedEmployees);
+            displayEmployees(employees); // Display all employees initially
+        } else {
+            console.error('No employee data found in session storage.');
+        }
+    });
 
     // Display employees based on the provided list
     function displayEmployees(employeeList) {
@@ -73,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Event listener for the apply filters button
     applyFiltersButton.addEventListener('click', filterEmployees);
 });
+
 
 
 
