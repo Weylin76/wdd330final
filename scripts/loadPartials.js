@@ -56,25 +56,42 @@ async function fetchAndStoreEmployees() {
     }
 }
 
-function displayEmployees(employees) {
+// Function to display employees based on the provided list
+function displayEmployees(employeeList) {
     const output = document.getElementById('output');
-    const allWages = document.getElementById('allWages');
-    if (output) {
-        output.innerHTML = employees.map(employee => `
-            <div class="employee-card">
-                <img src="${employee.picture.large}" alt="${employee.name.first} ${employee.name.last}" />
-                <h3>${employee.name.first} ${employee.name.last}</h3>
-                <p>Salary: $${employee.salary.toLocaleString()}</p>
-                <p>Department: ${getRandomDepartment()}</p>
-            </div>
-        `).join('');
+    output.innerHTML = ''; // Clear previous results
+    employeeList.forEach(employee => {
+        const employeeCard = document.createElement('div');
+        employeeCard.classList.add('employee-info');
 
-        const totalWages = employees.reduce((sum, employee) => sum + employee.salary, 0);
-        if (allWages) {
-            allWages.innerText = `$${totalWages.toLocaleString()}`;
-        }
-    }
+        const name = `${employee.name.first} ${employee.name.last}`;
+        const imgSrc = employee.picture.large;
+
+        employeeCard.innerHTML = `
+            <img src="${imgSrc}" alt="Picture of ${name}" class="employee-image">
+            <h3>${name}</h3>
+            <p>Salary: $${employee.salary.toLocaleString()}</p>
+            <p>Department: ${employee.department}</p>
+        `;
+
+        output.appendChild(employeeCard);
+    });
 }
+
+// Initial fetch or retrieve employees from session storage
+// Fetch employee data from the session storage
+const employees = JSON.parse(sessionStorage.getItem('employees')) || [];
+displayEmployees(employees);
+
+// Add an event listener for the search input
+document.getElementById('search-input').addEventListener('keyup', () => {
+    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    const filteredEmployees = employees.filter(employee => 
+        `${employee.name.first.toLowerCase()} ${employee.name.last.toLowerCase()}`.includes(searchTerm)
+    );
+    displayEmployees(filteredEmployees);
+});
+
 
 function displayEmployeeTaxes(employees) {
     const output = document.getElementById('tax-output');
