@@ -8,11 +8,12 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('No employee data found in session storage.');
     } else {
         console.log('Displaying employees:', employees);
-        displayEmployees(employees);
+        displayEmployees(employees, 'home-view');
     }
 
-    function displayEmployees(employeeList) {
+    function displayEmployees(employeeList, viewClass) {
         output.innerHTML = ''; // Clear previous results
+        output.className = `employee-list ${viewClass}`; // Set the appropriate class
         console.log('Displaying employees:', employeeList);
         employeeList.forEach(employee => {
             // Create a container for each employee's info
@@ -53,8 +54,14 @@ document.addEventListener('DOMContentLoaded', () => {
             return fullName.includes(searchTerm);
         });
         console.log('Filtered employees:', filteredEmployees);
-        displayEmployees(filteredEmployees);
+        displayEmployees(filteredEmployees, 'filtered-view');
     });
 });
+
+
+
+
+
+
 
 

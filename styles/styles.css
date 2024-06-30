@@ -1,10 +1,14 @@
 body {
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5;
 }
 
-header, nav, footer {
+header, footer {
     text-align: center;
-    background-color: #f8f9fa;
+    background-color: #00274C; /* University of Michigan blue */
+    color: white;
     padding: 10px;
     margin-bottom: 20px;
 }
@@ -14,23 +18,32 @@ header h1, footer p {
     padding: 0;
 }
 
+nav {
+    background-color: #041E42; /* Darker blue for the nav */
+    padding: 10px 0;
+}
+
 nav ul {
     list-style-type: none;
     padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
 }
 
 nav ul li {
-    display: inline;
     margin: 0 10px;
 }
 
 nav ul li a {
     text-decoration: none;
-    color: #007bff;
+    color: white;
+    font-weight: bold;
 }
 
 .main-content {
     text-align: center;
+    margin: 20px;
 }
 
 .employee-card {
@@ -39,8 +52,7 @@ nav ul li a {
     margin: 16px;
     border-radius: 8px;
     text-align: center;
-    width: 100%;
-    box-sizing: border-box;
+    background-color: white;
 }
 
 .employee-image {
@@ -50,7 +62,15 @@ nav ul li a {
     object-fit: cover;
 }
 
-#output {
+#output.home-view .employee-card {
+    width: 30%;
+}
+
+#output.filtered-view .employee-card {
+    width: 300px; /* Min width for filtered data */
+}
+
+.employee-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
@@ -80,5 +100,27 @@ nav ul li a {
 
 #allWages {
     font-weight: bold;
+    margin-top: 20px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 80%;
+    max-width: 400px;
+    box-sizing: border-box;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+h3 {
+    margin: 10px 0;
+}
+
+p {
+    margin: 5px 0;
 }
 
