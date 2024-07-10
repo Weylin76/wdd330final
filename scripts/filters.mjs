@@ -1,3 +1,5 @@
+import { displayEmployees } from './loadPartials.mjs';
+
 document.addEventListener('DOMContentLoaded', () => {
     console.log('filters.js loaded');
     const searchInput = document.getElementById('search-input');
@@ -57,11 +59,3 @@ document.addEventListener('DOMContentLoaded', () => {
         displayEmployees(filteredEmployees, 'filtered-view');
     });
 });
-
-
-
-
-
-
-
-
