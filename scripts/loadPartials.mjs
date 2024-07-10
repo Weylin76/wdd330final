@@ -60,6 +60,12 @@ export function displayEmployees(employeeList) {
     displayTotalSalary(totalSalary);
 }
 
+function updateFooterDate() {
+    const dateElement = document.getElementById('current-date');
+    const currentDate = new Date().toLocaleDateString();
+    dateElement.textContent = currentDate;
+}
+
 document.addEventListener('DOMContentLoaded', async function () {
     // Determine the base path for the partials
     const basePath = window.location.pathname.includes('/pages/') ? '../partials/' : 'partials/';
@@ -68,6 +74,9 @@ document.addEventListener('DOMContentLoaded', async function () {
     await loadPartial(`${basePath}header.html`, 'header-content');
     await loadPartial(`${basePath}nav.html`, 'nav-content');
     await loadPartial(`${basePath}footer.html`, 'footer-content');
+
+    // Update footer date
+    updateFooterDate();
 
     // Check if we have employee data in sessionStorage
     let employees = JSON.parse(sessionStorage.getItem('employees'));
