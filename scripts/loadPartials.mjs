@@ -1,4 +1,5 @@
 import { assignDepartments } from './departments.mjs';
+import { calculateTotalSalary, displayTotalSalary } from './salarySum.mjs';
 
 export async function loadPartial(file, elementId) {
     try {
@@ -54,6 +55,9 @@ export function displayEmployees(employeeList) {
 
         output.appendChild(employeeCard);
     });
+
+    const totalSalary = calculateTotalSalary(employeeList);
+    displayTotalSalary(totalSalary);
 }
 
 document.addEventListener('DOMContentLoaded', async function () {
