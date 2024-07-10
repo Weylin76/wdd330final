@@ -1,3 +1,5 @@
+import { assignDepartments } from './departments.mjs';
+
 export async function loadPartial(file, elementId) {
     try {
         const response = await fetch(file);
@@ -16,10 +18,13 @@ export async function fetchAndStoreEmployees() {
     try {
         const response = await fetch(url);
         const data = await response.json();
-        const employees = data.results.map(employee => {
+        let employees = data.results.map(employee => {
             employee.salary = Math.floor(Math.random() * (250000 - 50000 + 1) + 50000); // Assign random salary
             return employee;
         });
+
+        // Assign departments to employees
+        employees = assignDepartments(employees);
 
         // Store employees data in sessionStorage
         sessionStorage.setItem('employees', JSON.stringify(employees));

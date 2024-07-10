@@ -1,7 +1,7 @@
 import { displayEmployees } from './loadPartials.mjs';
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('filters.js loaded');
+    console.log('filters.mjs loaded');
     const searchInput = document.getElementById('search-input');
     const output = document.getElementById('output');
     let employees = JSON.parse(sessionStorage.getItem('employees'));

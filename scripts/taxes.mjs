@@ -13,26 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-export function displayEmployeeTaxes(employees) {
-    const output = document.getElementById('tax-output');
-    if (output) {
-        output.innerHTML = employees.map(employee => {
-            const annualTax = calculateFederalTax(employee.salary);
-            const taxPerPayPeriod = (annualTax / 26).toFixed(2);
-
-            return `
-                <div class="employee-card">
-                    <img src="${employee.picture.large}" alt="${employee.name.first} ${employee.name.last}" />
-                    <h3>${employee.name.first} ${employee.name.last}</h3>
-                    <p>Salary: $${employee.salary.toLocaleString()}</p>
-                    <p>Annual Tax: $${annualTax.toLocaleString()}</p>
-                    <p>Tax per Pay Period: $${taxPerPayPeriod}</p>
-                </div>
-            `;
-        }).join('');
-    }
-}
-
 export function calculateFederalTax(salary) {
     const brackets = [
         { rate: 0.10, limit: 9950 },
