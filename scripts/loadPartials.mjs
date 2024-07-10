@@ -140,3 +140,4 @@ export function calculateFederalTax(salary) {
 
     return tax;
 }
+
