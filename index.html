@@ -4,33 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Page</title>
+    <title>ABC Company Employee List</title>
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 
 <body>
-    <header id="header-content">
-        <!-- Header content will be loaded here -->
-    </header>
-    <nav id="nav-content">
-        <!-- Navigation content will be loaded here -->
-    </nav>
+    <!-- Header partial -->
+    <div id="header-content"></div>
+
+    <!-- Nav partial -->
+    <div id="nav-content"></div>
+
+    <!-- Main content area -->
     <div class="main-content">
         <h2>ABC Company Employee List</h2>
-        <p>Welcome to the ABC Company employee management system.</p>
-        <div class="controls">
+        <div class="search-bar">
             <input type="text" id="search-input" placeholder="Search by name">
         </div>
-        <p>ABC Company Employee List</p>
-        <div class="employee-list home-view" id="output">
-            <!-- Employee cards will be dynamically inserted here -->
-        </div><br>
-        <div style="text-align: center;">Total of combined wages:</div>
-        <div id="allWages" style="text-align: center;"></div>
+        <div id="output" class="employee-list"></div>
     </div>
-    <footer id="footer-content">
-        <!-- Footer content will be loaded here -->
-    </footer>
+
+    <!-- Footer partial -->
+    <div id="footer-content"></div>
+
+    <!-- Load scripts -->
     <script type="module" src="scripts/loadPartials.mjs" defer></script>
     <script type="module" src="scripts/filters.mjs" defer></script>
 </body>

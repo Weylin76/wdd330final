@@ -41,7 +41,7 @@ export function displayEmployees(employeeList) {
     output.innerHTML = ''; // Clear previous results
     employeeList.forEach(employee => {
         const employeeCard = document.createElement('div');
-        employeeCard.classList.add('employee-info');
+        employeeCard.classList.add('employee-card');
 
         const name = `${employee.name.first} ${employee.name.last}`;
         const imgSrc = employee.picture.large;
@@ -140,4 +140,5 @@ export function calculateFederalTax(salary) {
 
     return tax;
 }
+
 
